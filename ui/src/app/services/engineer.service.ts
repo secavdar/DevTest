@@ -10,6 +10,6 @@ export class EngineerService {
   constructor(private httpClient: HttpClient) { }
 
   public GetEngineers(): Observable<string[]> {
-    return this.httpClient.get<string[]>('http://localhost:63235/engineer');
+    return this.httpClient.get<string[]>('engineer');
   }
 }

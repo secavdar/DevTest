@@ -7,6 +7,7 @@ namespace DeveloperTest.Database
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Job> Jobs { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -29,8 +30,20 @@ namespace DeveloperTest.Database
                 {
                     JobId = 1,
                     Engineer = "Test",
+                    CustomerId = null,
                     When = DateTime.Now
                 });
+
+            modelBuilder.Entity<Customer>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Customer>()
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Customer>()
+                .HasMany(x => x.Jobs)
+                .WithOne(x => x.Customer);
         }
     }
 }
